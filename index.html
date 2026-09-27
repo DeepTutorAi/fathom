@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Fathom — A descent into the deep ocean</title>
+    <meta
+      name="description"
+      content="An interactive descent through the four depth zones of the open ocean, from the sunlit surface to the abyss."
+    />
+    <meta name="theme-color" content="#02070d" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2302070d'/%3E%3Cpath d='M16 5v18' stroke='%23cfe8ee' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='25' r='2.5' fill='%23ffd29a'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <noscript>
+      <style>
+        .loader,
+        .hud,
+        .cursor,
+        .stage {
+          display: none !important;
+        }
+        .chapter {
+          padding: 20vh 8vw;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <canvas class="stage" aria-hidden="true"></canvas>
+
+    <div class="loader" data-state="loading">
+      <div class="loader__inner">
+        <p class="loader__brand">Fathom</p>
+        <div class="loader__sounding" aria-hidden="true">
+          <span class="loader__line"></span>
+          <span class="loader__lead"></span>
+        </div>
+        <p class="loader__status" role="status" aria-live="polite">
+          <span class="loader__label">Preparing the descent</span>
+          <span class="loader__pct">0</span>
+        </p>
+        <div class="loader__actions" hidden>
+          <button type="button" class="button button--primary" data-enter="sound">Descend with sound</button>
+          <button type="button" class="button button--quiet" data-enter="silent">Descend in silence</button>
+        </div>
+        <p class="loader__note">Best experienced with headphones. Scroll to descend.</p>
+      </div>
+    </div>
+
+    <header class="hud" aria-label="Dive telemetry">
+      <div class="hud__brand">
+        <span class="hud__logo">Fathom</span>
+        <span class="hud__zone" aria-live="polite"><span class="hud__zone-index">I</span><span class="hud__zone-name">Epipelagic</span></span>
+      </div>
+
+      <div class="gauge" aria-hidden="true">
+        <div class="gauge__track">
+          <span class="gauge__tick" style="--at: 0.2" data-label="200"></span>
+          <span class="gauge__tick" style="--at: 0.5" data-label="1000"></span>
+          <span class="gauge__tick" style="--at: 0.8" data-label="4000"></span>
+          <span class="gauge__fill"></span>
+          <span class="gauge__marker"></span>
+        </div>
+      </div>
+
+      <dl class="readout">
+        <div class="readout__row readout__row--depth">
+          <dt>Depth</dt>
+          <dd><span class="readout__depth">0</span><small>m</small></dd>
+        </div>
+        <div class="readout__row">
+          <dt>Pressure</dt>
+          <dd><span class="readout__pressure">1</span><small>atm</small></dd>
+        </div>
+        <div class="readout__row">
+          <dt>Water</dt>
+          <dd><span class="readout__temp">26</span><small>°C</small></dd>
+        </div>
+      </dl>
+
+      <button type="button" class="sound-toggle" aria-pressed="false">
+        <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-toggle__label">Sound off</span>
+      </button>
+
+      <p class="scroll-hint" aria-hidden="true"><span class="scroll-hint__line"></span>Scroll to descend</p>
+    </header>
+
+    <main class="story">
+      <section class="chapter chapter--title" data-at="0" data-span="0.035" data-layer="1">
+        <p class="chapter__eyebrow">A descent in four zones</p>
+        <h1 class="chapter__title">Fathom</h1>
+        <p class="chapter__body">
+          Beneath the surface lies the largest living space on Earth. Most of it has never been seen.
+        </p>
+      </section>
+
+      <section class="chapter chapter--left" data-at="0.075" data-span="0.07" data-layer="0.8">
+        <p class="chapter__eyebrow">I · Epipelagic · 0–200 m</p>
+        <h2 class="chapter__title">The sunlit sea</h2>
+        <p class="chapter__body">Nearly all of the ocean's photosynthesis happens here, in one thin layer of light.</p>
+      </section>
+
+      <section class="chapter chapter--right" data-at="0.225" data-span="0.07" data-layer="0.8">
+        <p class="chapter__eyebrow">II · Mesopelagic · 200–1,000 m</p>
+        <h2 class="chapter__title">The twilight zone</h2>
+        <p class="chapter__body">Light fades to a rumour of blue. Too dim to feed plants, just bright enough to hunt by.</p>
+      </section>
+
+      <section class="chapter chapter--left" data-at="0.38" data-span="0.07" data-layer="0.6">
+        <p class="chapter__eyebrow">Diel vertical migration</p>
+        <h2 class="chapter__title">The great migration</h2>
+        <p class="chapter__body">
+          Each night, billions of animals rise from these depths to feed near the surface, then sink again before dawn.
+          It is the largest migration on Earth.
+        </p>
+      </section>
+
+      <section class="chapter chapter--center" data-at="0.525" data-span="0.06" data-layer="1">
+        <p class="chapter__eyebrow">III · Bathypelagic · 1,000–4,000 m</p>
+        <h2 class="chapter__title">The midnight zone</h2>
+        <p class="chapter__body">No sunlight reaches this far. The only light is the light that life makes.</p>
+      </section>
+
+      <section class="chapter chapter--right" data-at="0.64" data-span="0.07" data-layer="0.7">
+        <p class="chapter__eyebrow">Bioluminescence</p>
+        <h2 class="chapter__title">Move slowly.</h2>
+        <p class="chapter__body">Most animals here make their own light. Disturb the water and it answers.</p>
+        <p class="chapter__hint"><span class="chapter__hint-dot" aria-hidden="true"></span>Hover or tap the lights</p>
+      </section>
+
+      <section class="chapter chapter--left" data-at="0.815" data-span="0.07" data-layer="0.8">
+        <p class="chapter__eyebrow">IV · Abyssopelagic · 4,000 m +</p>
+        <h2 class="chapter__title">The abyss</h2>
+        <p class="chapter__body">
+          Near-freezing water. Four hundred times the pressure of the surface. And far below, a light that belongs to
+          nothing alive.
+        </p>
+      </section>
+
+      <section class="chapter chapter--end" data-at="0.955" data-span="1" data-layer="0.5">
+        <p class="chapter__eyebrow">Unidentified structure · 4,800 m</p>
+        <h2 class="chapter__title">Something has been waiting.</h2>
+        <p class="chapter__body">We have better maps of the surface of Mars than of our own sea floor.</p>
+        <button type="button" class="button button--quiet chapter__ascend" data-ascend>Return to the surface</button>
+      </section>
+    </main>
+
+    <div class="scroll-track" aria-hidden="true"></div>
+
+    <div class="cursor" aria-hidden="true">
+      <svg class="cursor__leader" width="100%" height="100%"><line x1="0" y1="0" x2="0" y2="0" /></svg>
+      <span class="cursor__ring"></span>
+      <span class="cursor__dot"></span>
+      <span class="cursor__label">
+        <span class="cursor__title"></span>
+        <span class="cursor__meta"></span>
+      </span>
+    </div>
+
+    <div class="notice" role="alert" hidden>
+      <p class="notice__text"></p>
+      <button type="button" class="button button--quiet" data-reload>Reload</button>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
