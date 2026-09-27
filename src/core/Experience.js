@@ -357,6 +357,7 @@ export class Experience {
       this.bubbles.burst(origin, 150, 3.5);
     }
     this.renderer.renderer.setAnimationLoop(this.frame);
+    this.cursor.activate();
     if (sound) await this.enableSound();
     this.syncSoundToggle();
   }

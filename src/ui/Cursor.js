@@ -22,8 +22,15 @@ export class Cursor {
     this.item = null;
     this.touchUntil = 0;
 
-    document.documentElement.classList.toggle('has-cursor', this.enabled);
     root.classList.toggle('is-touch', !this.enabled);
+  }
+
+  /**
+   * Hides the native cursor only once the frame loop drives the custom one;
+   * before that (loader, fallback) the system cursor must stay visible.
+   */
+  activate() {
+    document.documentElement.classList.toggle('has-cursor', this.enabled);
   }
 
   setItem(item) {
